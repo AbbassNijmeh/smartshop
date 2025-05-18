@@ -221,13 +221,42 @@
                     <ul class="order-items-collapse collapsed mt-2">
                         @foreach ($order->orderItems as $item)
                         <li>{{ $item->quantity }} x {{ $item->product->name ?? 'Unknown Product' }}
-                        </li>                        @endforeach
+                        </li> @endforeach
                     </ul>
 
-                    <a href="{{ route('delivery.completed', $order->id) }}" class="btn btn-primary mt-2">Mark as
-                        Delivered</a>
-                </div>
+                    <a href="" class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#otpModal">
+                        Mark as Delivered
+                    </a>
 
+                </div>
+                <!-- OTP Modal -->
+                <div class="modal fade" id="otpModal" tabindex="-1" role="dialog" aria-labelledby="otpModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <form method="POST" action="{{ route('delivery.completed') }}">
+                            @csrf
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="otpModalLabel">Enter OTP to Confirm Delivery</h5>
+                                    <button type="button" class="close" data-bs-dismiss="modal" aria-bs-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="otp">OTP</label>
+                                        <input type="text" name="otp" class="form-control" id="otp" required>
+                                    </div>
+                                    <input type="hidden" name="order_id" value="{{ $order->id }}">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-primary">Confirm Delivery</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
                 @endforeach
                 @endif
             </div>
@@ -244,6 +273,7 @@
             </div>
         </div>
     </div>
+
 
     <!-- Logout Confirmation Modal -->
     <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">

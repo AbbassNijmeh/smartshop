@@ -149,7 +149,7 @@ class PaymentController extends Controller
             ]);
 
             $product = Product::find($itemData['product_id']);
-            app(RecommendationController::class)->logPurchase($product, Auth::id());
+            // app(RecommendationController::class)->logPurchase($product, Auth::id());
         }
 
         Payment::create([

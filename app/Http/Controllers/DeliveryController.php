@@ -16,16 +16,21 @@ class DeliveryController extends Controller
         if (Auth::user()->role != 'delivery') {
             return redirect()->route('login');
         }
-        $orders = Order::with('orderItems')->where('status', '=', 'shipping')->get();
+        $orders = Order::with('orderItems')->where('status', '=', 'shipping')->where('delivery_id', '=', Auth::id())->get();
         return view('delivery.index', compact('orders'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function updateStatus($orderID)
+    public function updateStatus(Request $request)
     {
-        $order = Order::find($orderID);
+        $request->validate([
+            'order_id' => 'required|exists:orders,id',
+        ]);
+
+        // Assume you have OTP validation logic here:
+        $order = Order::findOrFail($request->order_id);
         if (!$order) {
             return redirect()->route('delivery.index')->with('error', 'Order not found.');
         }

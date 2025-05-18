@@ -32,7 +32,7 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
 
     //make show order route
     Route::get('/admin/admin-orders/{id}', [OrderController::class, 'AdminShow'])->name('admin.orders.show');
-    Route::get('/admin/sendToDelivery/{id}', [OrderController::class, 'sendToDelivery'])->name('admin.orders.sendToDelivery');
+    Route::post('/admin/sendToDelivery', [OrderController::class, 'sendToDelivery'])->name('admin.orders.sendToDelivery');
 
     // make products routes
     Route::get('/admin/products', [ProductController::class, 'Adminindex'])->name('products.index');
@@ -114,7 +114,7 @@ Route::get('api/product-by-barcode', [ProductController::class, 'getProductByBar
 //delivery routes with middle ware
 Route::middleware(['auth', EnsureIsDelivery::class])->group(function () {
     Route::get('delivery', [DeliveryController::class, 'index'])->name('delivery.index');
-    Route::get('/orders/{order}/status', [DeliveryController::class, 'updateStatus'])->name('delivery.completed');
+    Route::post('/orders/order/delivery/completed', [DeliveryController::class, 'updateStatus'])->name('delivery.completed');
 });
 
 use App\Http\Controllers\RecommendationController;

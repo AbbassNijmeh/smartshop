@@ -49,17 +49,28 @@
                                     </div>
                                 </div>
                             </div>
+
+                            {{-- Order Status --}}
+                            <div class="mt-3">
+                                @if($order->status === 'ready')
+                                <p class="text-success mb-0"><i class="fas fa-store"></i> Picked up from store</p>
+                                @elseif($order->status === 'delivered')
+                                <p class="text-success mb-0"><i class="fas fa-check-circle"></i> Delivered to your
+                                    address</p>
+                                @elseif($order->status === 'pending')
+                                <p class="text-warning mb-0"><i class="fas fa-hourglass-half"></i> The shop is
+                                    processing your order</p>
+                                @elseif($order->status === 'shipping')
+                                <p class="text-info mb-0"><i class="fas fa-truck"></i> Out for delivery</p>
+                                @endif
+                            </div>
                         </div>
 
                         <div class="card-footer text-muted">
-                            {{-- location --}}
-                            @if ($order->user_address_id)
-                            @if (
-                            $order->userAddress->building &&
-                            $order->userAddress->street &&
-                            $order->userAddress->city &&
-                            $order->userAddress->country
-                            )
+                            {{-- Location --}}
+                            @if($order->user_address_id)
+                            @if($order->userAddress->building && $order->userAddress->street &&
+                            $order->userAddress->city && $order->userAddress->country)
                             <p class="mb-0">
                                 <i class="fas fa-map-marker-alt"></i>
                                 {{ $order->userAddress->country }},
@@ -67,7 +78,7 @@
                                 {{ $order->userAddress->street }},
                                 {{ $order->userAddress->building }}
                             </p>
-                            @elseif ($order->userAddress->location_link)
+                            @elseif($order->userAddress->location_link)
                             <p class="mb-0">
                                 <i class="fas fa-map-marker-alt"></i>
                                 <a href="{{ $order->userAddress->location_link }}" target="_blank"
@@ -75,7 +86,7 @@
                                     View on Map
                                 </a>
                             </p>
-                            @elseif ($order->userAddress->latitude && $order->userAddress->longtitude)
+                            @elseif($order->userAddress->latitude && $order->userAddress->longtitude)
                             <p class="mb-0">
                                 <i class="fas fa-map-marker-alt"></i>
                                 Coordinates: {{ $order->userAddress->latitude }}, {{ $order->userAddress->longtitude }}

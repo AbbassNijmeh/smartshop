@@ -29,7 +29,7 @@ class HomeController extends Controller
      */
     public function showWelcome()
     {
-        app(RecommendationController::class)->syncAllProducts();
+        // app(RecommendationController::class)->syncAllProducts();
 
         $products = Product::select('products.*')
             ->selectSub(function ($query) {
@@ -172,7 +172,7 @@ class HomeController extends Controller
             $allergicIngredients = $product->ingredients
                 ->whereIn('id', $userAllergyIngredients);
         }
-        app(RecommendationController::class)->logView($product, Auth::id());
+        // app(RecommendationController::class)->logView($product, Auth::id());
 
         $total = $product->orderItems->sum('quantity');
         return view('site.singleProduct', compact('product', 'total', 'allergicIngredients'));

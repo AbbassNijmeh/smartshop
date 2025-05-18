@@ -16,6 +16,8 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->unsignedBigInteger('address_id')->nullable();
             $table->foreign('address_id')->references('id')->on('user_addresses')->nullOnDelete();
+            $table->unsignedBigInteger('delivery_id')->nullable();
+            $table->foreign('delivery_id')->references('id')->on('users')->nullOnDelete();
             $table->decimal('total_price', 10, 2);
             $table->enum('status', ['pending', 'delivered', 'ready', 'shipping']);
             $table->softDeletes();

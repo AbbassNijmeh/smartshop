@@ -37,15 +37,17 @@
                     @if($order->status == 'ready')
                     Ready (No delivery required)
                     @elseif($order->status == 'pending')
-                    Pending - <a class="btn btn-sm btn-primary approve-delivery"
-                        href="{{  route('admin.orders.sendToDelivery', $order->id) }}">Approve
-                        for Delivery</a>
-                    @elseif($order->status == 'delivered')
+                    pending -
+                    <button class="btn btn-sm btn-primary approve-delivery" data-toggle="modal"
+                        data-target="#deliveryModal-{{ $order->id }}">
+                        Choose Delivery Guy
+                    </button> @elseif($order->status == 'delivered')
                     Delivered
                     @else
                     {{ $order->status }}
                     <!-- Fallback for any other status -->
                     @endif
+
                 </td>
                 <td>{{$order->total_price}}</td>
                 <td>{{$order->created_at->format('d M Y')}}</td>
@@ -54,6 +56,37 @@
                             href="{{route('admin.orders.show', $order->id)}}">View</a></div>
                 </td>
             </tr>
+
+            <!-- Delivery Modal -->
+            <div class="modal fade" id="deliveryModal-{{ $order->id }}" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Assign Delivery for Order #{{ $order->id }}</h5>
+                            <button type="button" class="btn-close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <form action="{{ route('admin.orders.sendToDelivery') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="order_id" value="{{ $order->id }}">
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label class="form-label">Select Delivery Agent</label>
+                                    <select class="form-select" name="delivery_guy_id" required>
+                                        <option value="">Choose...</option>
+                                        @foreach($deliveryUsers as $delivery)
+                                        <option value="{{ $delivery->id }}">{{ $delivery->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Assign Delivery</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
             @endforeach
         </tbody>
         <tfoot>

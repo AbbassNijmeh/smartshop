@@ -23,11 +23,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         // Only run if settings table exists
-        if (Schema::hasTable('site_settings')) {
+        if (Schema::hasTable('settings')) {
             $this->registerDefaultSettings();
         }
         $settings = Setting::first();
-        View::share('setting',$settings);
+        View::share('setting', $settings);
     }
 
     protected function registerDefaultSettings()
@@ -44,10 +44,15 @@ class AppServiceProvider extends ServiceProvider
         ];
 
         foreach ($defaults as $key => $value) {
-            Setting::firstOrCreate(
-                ['key' => $key],
-                ['value' => $value]
-            );
+            Setting::firstOrCreate([
+                'name' => 'Store',
+                'email' => 'store@email.com',
+                'phone' => '+96123456789',
+                'address' => 'Beirut, lebanon',
+                'facebook' => 'facebook.com',
+                'tiktok' => 'tiktok.com',
+                'instagram' => 'instagram.com',
+            ]);
         }
     }
 }

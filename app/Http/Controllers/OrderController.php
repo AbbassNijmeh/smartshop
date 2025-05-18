@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -13,26 +14,37 @@ class OrderController extends Controller
     public function Adminindex()
     {
         $orders = Order::all();
-
-        return view('admin.order.index', compact('orders'));
+        $deliveryUsers = User::where('role', '=', 'delivery')->get();
+        // dd($deliveryUsers);
+        return view('admin.order.index', compact('orders', 'deliveryUsers'));
     }
     public function AdminShow($id)
     {
         $order = Order::with('payment', 'orderItems')->find($id);
         return view('admin.order.details', compact('order'));
     }
-    function SendToDelivery($orderId)
+    function SendToDelivery(Request $request)
     {
-        //update the statius of the order from pending to chipping
-        $order = Order::find($orderId);
+        $validated = $request->validate([
+            'delivery_guy_id' => 'required|exists:users,id',
+            'order_id' => 'required|exists:orders,id',
+        ]);
+
+        $order = Order::find($validated['order_id']);
+
         if (!$order) {
             return redirect()->route('orders.index')->with('error', 'Order not found.');
         }
+
         if ($order->status != 'pending') {
             return redirect()->route('orders.index')->with('error', 'Order is not pending.');
         }
-        $order->status = 'shipping';
-        $order->save();
+
+        $order->update([
+            'status' => 'shipping',
+            'delivery_id' => $validated['delivery_guy_id']
+        ]);
+
         return redirect()->route('orders.index')->with('success', 'Order sent for delivery successfully.');
     }
     public function destroy(Order $order)
@@ -48,7 +60,7 @@ class OrderController extends Controller
     }
     public function userShow($id)
     {
-        $order = Order::with('orderItems.product')->findOrFail($id);
+        $order = Auth::user()->orders()->with('orderItems.product')->findOrFail($id);
         // dd($order);
         return view('site.orderDetail', compact('order'));
     }

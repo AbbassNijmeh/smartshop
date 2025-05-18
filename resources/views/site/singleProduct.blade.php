@@ -261,21 +261,7 @@
 @endsection
 @push('script')
 <script>
-    function showMessage(message, backgroundColor) {
-        $('body').append(`
-            <div id="success-message"
-                style="position: fixed; top: 20px; right: 20px; padding: 10px 20px;
-                background-color: ${backgroundColor}; color: white; border-radius: 5px; z-index: 1000; font-size: 16px;">
-                ${message}
-            </div>
-        `);
-        setTimeout(function () {
-            $('#success-message').fadeOut('slow', function () {
-                $(this).remove();
-                location.reload();
-            });
-        }, 4000);
-    }
+
 
     $(document).ready(function() {
     $('#submit-review-btn').click(function(e) {
