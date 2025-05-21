@@ -45,7 +45,8 @@ class HomeController extends Controller
             ->where('stock_quantity', '>', 0)
             ->orderByDesc('avg_rating')
             ->orderByDesc('total_sold')
-            ->get();
+            ->get()
+            ->shuffle();
         $categories = Category::all();
         return view('welcome', compact('products', 'categories'));
     }

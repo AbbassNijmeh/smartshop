@@ -31,147 +31,164 @@
     <link href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/responsive/3.0.4/css/responsive.dataTables.min.css" rel="stylesheet">
     <style>
-    /* Error/Success Message Container */
-    .message-container {
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        z-index: 9999;
-        max-width: 400px;
-        width: 90%;
-    }
-
-    /* Base Message Card */
-    .message-card {
-        padding: 1rem;
-        margin-bottom: 1rem;
-        border-radius: 4px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        display: flex;
-        align-items: center;
-        animation: slideIn 0.3s ease-out forwards;
-        position: relative;
-        overflow: hidden;
-    }
-
-    /* Error Message Styling */
-    .error-card {
-        background: #fff0f0;
-        border-left: 4px solid #dc3545;
-    }
-
-    .error-icon {
-        color: #dc3545;
-    }
-
-    .error-message {
-        color: #721c24;
-    }
-
-    /* Success Message Styling */
-    .success-card {
-        background: #f0fff4;
-        border-left: 4px solid #28a745;
-    }
-
-    .success-icon {
-        color: #28a745;
-    }
-
-    .success-message {
-        color: #155724;
-    }
-
-    /* Warning Message Styling */
-    .warning-card {
-        background: #fffaf0;
-        border-left: 4px solid #ffc107;
-    }
-
-    .warning-icon {
-        color: #ffc107;
-    }
-
-    .warning-message {
-        color: #856404;
-    }
-
-    /* Common Icon Styling */
-    .message-icon {
-        font-size: 1.5rem;
-        margin-right: 1rem;
-        min-width: 24px;
-    }
-
-    /* Message Content */
-    .message-content {
-        flex-grow: 1;
-        font-size: 0.9rem;
-        padding-right: 1.5rem;
-    }
-
-    /* Dismiss Button */
-    .message-dismiss {
-        position: absolute;
-        top: 8px;
-        right: 8px;
-        background: none;
-        border: none;
-        color: inherit;
-        opacity: 0.7;
-        cursor: pointer;
-        transition: opacity 0.2s;
-    }
-
-    .message-dismiss:hover {
-        opacity: 1;
-    }
-
-    /* Animation */
-    @keyframes slideIn {
-        from {
-            opacity: 0;
-            transform: translateX(100%);
+        /* Error/Success Message Container */
+        .message-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            max-width: 400px;
+            width: 90%;
         }
-        to {
+
+        /* Base Message Card */
+        .message-card {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            animation: slideIn 0.3s ease-out forwards;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Error Message Styling */
+        .error-card {
+            background: #fff0f0;
+            border-left: 4px solid #dc3545;
+        }
+
+        .error-icon {
+            color: #dc3545;
+        }
+
+        .error-message {
+            color: #721c24;
+        }
+
+        /* Success Message Styling */
+        .success-card {
+            background: #f0fff4;
+            border-left: 4px solid #28a745;
+        }
+
+        .success-icon {
+            color: #28a745;
+        }
+
+        .success-message {
+            color: #155724;
+        }
+
+        /* Warning Message Styling */
+        .warning-card {
+            background: #fffaf0;
+            border-left: 4px solid #ffc107;
+        }
+
+        .warning-icon {
+            color: #ffc107;
+        }
+
+        .warning-message {
+            color: #856404;
+        }
+
+        /* Common Icon Styling */
+        .message-icon {
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            min-width: 24px;
+        }
+
+        /* Message Content */
+        .message-content {
+            flex-grow: 1;
+            font-size: 0.9rem;
+            padding-right: 1.5rem;
+        }
+
+        /* Dismiss Button */
+        .message-dismiss {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: none;
+            border: none;
+            color: inherit;
+            opacity: 0.7;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .message-dismiss:hover {
             opacity: 1;
-            transform: translateX(0);
         }
-    }
 
-    @keyframes fadeOut {
-        to {
-            opacity: 0;
-            height: 0;
-            padding: 0;
-            margin: 0;
-            transform: translateX(100%);
+        /* Animation */
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
-    }
 
-    /* Stacking effect for multiple messages */
-    .message-stack div:nth-child(1) { z-index: 3; }
-    .message-stack div:nth-child(2) { transform: translateY(20px) scale(0.95); z-index: 2; }
-    .message-stack div:nth-child(3) { transform: translateY(40px) scale(0.9); z-index: 1; }
-    .message-stack div:nth-child(n+4) { display: none; }
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                height: 0;
+                padding: 0;
+                margin: 0;
+                transform: translateX(100%);
+            }
+        }
 
-    /* Footer Styling (existing) */
-    .ftco-footer {
-        border-top: 3px solid #007bff;
-    }
-    .ftco-footer a:hover {
-        color: #007bff !important;
-        transform: translateX(5px);
-        transition: all 0.3s ease;
-    }
-    .social-icons a {
-        transition: transform 0.3s ease;
-    }
-    .social-icons a:hover {
-        transform: translateY(-3px);
-    }
-</style>
+        /* Stacking effect for multiple messages */
+        .message-stack div:nth-child(1) {
+            z-index: 3;
+        }
 
+        .message-stack div:nth-child(2) {
+            transform: translateY(20px) scale(0.95);
+            z-index: 2;
+        }
+
+        .message-stack div:nth-child(3) {
+            transform: translateY(40px) scale(0.9);
+            z-index: 1;
+        }
+
+        .message-stack div:nth-child(n+4) {
+            display: none;
+        }
+
+        /* Footer Styling (existing) */
+        .ftco-footer {
+            border-top: 3px solid #007bff;
+        }
+
+        .ftco-footer a:hover {
+            color: #007bff !important;
+            transform: translateX(5px);
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a {
+            transition: transform 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            transform: translateY(-3px);
+        }
+    </style>
+@stack('styles')
 <body>
     <!-- Error Messages -->
     @if($errors->any())
@@ -235,28 +252,13 @@
     <div class="wrap">
         <div class="container">
             <div class="row align-items-center">
-                <!-- Contact Info Column -->
-                <div class="col-12 col-md-6 mb-3 mb-md-0">
-                    <div
-                        class="d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-md-start">
-                        <p class="mb-0 phone">
-                            <span class="d-block d-md-inline-block text-center text-md-left mb-1 mb-md-0 mr-md-3">
-                                <i class="fa fa-phone mr-1"></i>{{ $setting->phone }}
-                            </span>
-                            <span class="d-block d-md-inline-block text-center text-md-left">
-                                <i class="fa fa-paper-plane mr-1"></i>{{ $setting->email }}
-                            </span>
-                        </p>
-                    </div>
-                </div>
+
 
                 <!-- Auth Links Column -->
                 <div class="col-12 col-md-6 py-2">
                     <div
                         class="d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-md-end">
-                        <div class="social-media mr-md-4 mb-2 mb-md-0">
-                            <!-- Add social icons here if needed -->
-                        </div>
+
                         <div class="reg">
                             <div class="d-flex flex-column flex-md-row align-items-center">
                                 @guest
@@ -402,8 +404,8 @@
 
                 <!-- Quick Links -->
                 <div class="col-md-6 col-lg-3">
-                    <div class="mb-4">
-                        <h3 class="h5 mb-3">My Account</h3>
+                    <div class="mb-4 ">
+                        <h3 class="h5 mb-3 text-white">My Account</h3>
                         <ul class="list-unstyled">
                             <li class="mb-2">
                                 <a href="{{ route('profile.show') }}" class="text-white text-decoration-none">
@@ -432,7 +434,7 @@
                 <!-- Contact Info -->
                 <div class="col-md-6 col-lg-3">
                     <div class="mb-4">
-                        <h3 class="h5 mb-3">Contact Us</h3>
+                        <h3 class="h5 mb-3  text-white">Contact Us</h3>
                         <ul class="list-unstyled text-muted">
                             <li class="mb-3">
                                 <i class="fas fa-map-marker-alt me-2 text-primary"></i>
@@ -457,7 +459,7 @@
                 <!-- Newsletter -->
                 <div class="col-md-6 col-lg-3">
                     <div class="mb-4">
-                        <h3 class="h5 mb-3">Newsletter</h3>
+                        <h3 class="h5 mb-3  text-white">Newsletter</h3>
                         <form class="subscribe-form">
                             <div class="input-group mb-3">
                                 <input type="email" class="form-control" placeholder="Enter your email">

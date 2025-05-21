@@ -29,7 +29,8 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
     Route::get('/admin/orders', [OrderController::class, 'Adminindex'])->name('orders.index');
     Route::delete('/admin/orders/{order}', [OrderController::class, 'destroy'])->name('orders.destroy');
     Route::get('/orders/monthly-data', [OrderController::class, 'monthlyData']);
-
+    Route::get('/top-products', [OrderController::class, 'topProducts']);
+    Route::get('/category-sales', [OrderController::class, 'categorySales']);
     //make show order route
     Route::get('/admin/admin-orders/{id}', [OrderController::class, 'AdminShow'])->name('admin.orders.show');
     Route::post('/admin/sendToDelivery', [OrderController::class, 'sendToDelivery'])->name('admin.orders.sendToDelivery');
@@ -118,6 +119,7 @@ Route::middleware(['auth', EnsureIsDelivery::class])->group(function () {
 });
 
 use App\Http\Controllers\RecommendationController;
+
 Route::get('/recommend/upsell/{product}', [RecommendationController::class, 'recommendUpsell']);
 Route::get('/recommend/search', [RecommendationController::class, 'search']);
 Route::get('/recombee/sync-all-products', [RecommendationController::class, 'syncAllProducts']);

@@ -25,18 +25,19 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
 
-<style>
-            #map {
-                height: 250px;
-                width: 100%;
-                border-radius: 0.5rem;
-            }
-            .card-body {
-                overflow-x: hidden;
-            }
-        </style>
-        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 250px;
+            width: 100%;
+            border-radius: 0.5rem;
+        }
 
+        .card-body {
+            overflow-x: hidden;
+        }
+    </style>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    @stack('styles')
 </head>
 
 <body id="page-top">
@@ -106,7 +107,8 @@
                     <span>
                         Allergies & Ingredients</span>
                 </a>
-            </li>   <li class="nav-item">
+            </li>
+            <li class="nav-item">
                 <a class="nav-link " href="{{ route('settings.show') }}">
                     <i class="fas fa-cogs"></i>
                     <span>Settings</span>
@@ -125,20 +127,8 @@
                 Store
             </div>
 
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Store Map</span>
-                </a>
-            </li>
 
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="charts.html">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Reports</span></a>
-            </li>
+
             <li class="nav-item">
                 <a class="nav-link" href="" data-toggle="modal" data-target="#logoutModal">
                     <i class="fas fa-sign-out-alt"></i>

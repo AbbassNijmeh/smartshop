@@ -134,18 +134,16 @@
                     </div>
                 </div>
             </div>
+            @empty
 
-        </div>
-        @empty
-        <div class="row">
             <div class="col-12 text-center">
                 <p>No products found matching your filters.</p>
             </div>
+            @endforelse
         </div>
-        @endforelse
 
         {{-- pagination links --}}
-        @if (!$filteredProducts->empty())
+        {{-- @if (!$filteredProducts->empty()) --}}
 
         <div class="block-27">
             <ul>
@@ -169,7 +167,7 @@
             </ul>
         </div>
 
-        @endif
+        {{-- @endif --}}
 </section>
 @endsection
 @push('script')

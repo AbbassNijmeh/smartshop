@@ -16,18 +16,46 @@
         </div>
     </div>
 </section>
-<div class="text-center">
-    @if($allergicIngredients->count())
-    <div class="alert alert-danger">
-        <strong>Warning:</strong> This product contains ingredients you may be allergic to:
+@if($allergicIngredients->count())
+<!-- Hidden button to trigger modal -->
+<button type="button" id="triggerAllergyModal" class="d-none" data-toggle="modal" data-target="#allergyWarningModal"></button>
+
+<!-- Allergy Warning Modal -->
+<div class="modal fade" id="allergyWarningModal" tabindex="-1" role="dialog" aria-labelledby="allergyWarningLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content border-danger">
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title" id="allergyWarningLabel">
+          Allergy Warning
+        </h5>
+        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-danger">
+        <p><strong>This product contains ingredients you may be allergic to:</strong></p>
         <ul>
-            @foreach($allergicIngredients as $ingredient)
-            <li class="list-item">{{ $ingredient->name }}</li>
-            @endforeach
+          @foreach($allergicIngredients as $ingredient)
+            <li>{{ $ingredient->name }}</li>
+          @endforeach
         </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Got it</button>
+      </div>
     </div>
-    @endif
+  </div>
 </div>
+@endif
+
+@if($allergicIngredients->count())
+<script>
+  window.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('triggerAllergyModal').click();
+  });
+</script>
+@endif
+
 <section class="ftco-section">
     <div class="container">
 

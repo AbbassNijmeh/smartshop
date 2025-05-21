@@ -81,7 +81,7 @@
             </div>
         </div>
         <div class="row">
-            @include('components.recommendations', ['recommendedProducts' => $recommendedProducts])
+            {{-- @include('components.recommendations', ['recommendedProducts' => $recommendedProducts]) --}}
 
             @forelse ($products as $product)
             <div class="col-md-6 col-lg-3 d-flex">

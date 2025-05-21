@@ -10,24 +10,7 @@
 </nav>
 
 <div class="container-fluid">
-    <div class="row mb-3">
-        <div class="col-md-6">
-            <div class="card text-white bg-success">
-                <div class="card-body">
-                    <h5 class="card-title">Total Payments</h5>
-                    <p class="card-text display-6">{{ $payments->count() }}</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="card text-white bg-info">
-                <div class="card-body">
-                    <h5 class="card-title">Total Amount</h5>
-                    <p class="card-text display-6">${{ number_format($payments->sum('total_amount'), 2) }}</p>
-                </div>
-            </div>
-        </div>
-    </div>
+
 
     <div class="card">
         <div class="card-header bg-primary text-white">

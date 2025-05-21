@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 @section('body')
-<nav style="--breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+<nav style="--breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);"
+    aria-label="breadcrumb">
     <ol class="breadcrumb">
         <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
             <i class="fa fa-bars"></i>
@@ -21,6 +22,7 @@
             <tr>
                 <th>ID</th>
                 <th>Category Name</th>
+                <th>Image</th>
                 <th>Total Products</th>
                 <th>Created At</th>
             </tr>
@@ -30,6 +32,8 @@
             <tr class="text-center">
                 <td>{{$category->id}}</td>
                 <td>{{$category->name}}</td>
+                <td> <img src="{{ asset('storage/' . $category->image) }}" alt="{{ $category->name }}"
+                        class="img-thumbnail" style="max-width: 100px; height: auto;"></td>
                 <td>{{$category->products_count}}</td>
                 <td>{{$category->created_at->format('d M Y')}}</td>
             </tr>
@@ -39,8 +43,9 @@
             <tr>
                 <th>ID</th>
                 <th>Category Name</th>
+                <th>Image</th>
                 <th>Total products</th>
-                <th>Created At</th>
+                <th></th>
             </tr>
         </tfoot>
     </table>
@@ -54,12 +59,16 @@
                 <h5 class="modal-title" id="addCategoryModalLabel">Add New Category</h5>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">&times;</button>
             </div>
-            <form action="{{ route('categories.store') }}" method="POST">
+            <form action="{{ route('categories.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="category_name" class="form-label">Category Name</label>
                         <input type="text" class="form-control" id="category_name" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Category Image</label>
+                        <input type="file" class="form-control" id="image" name="image" required>
                     </div>
                 </div>
                 <div class="modal-footer">

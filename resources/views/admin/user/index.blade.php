@@ -62,10 +62,11 @@
 
                             <!-- Delete Button with Modal Trigger -->
                             <button type="button" class="btn btn-danger" data-toggle="modal"
-                                data-target="#deleteModal{{ $user->id }}" title="Delete" {{-- @if($user->id ===
-                                auth()->id() ||
-                                ($user->isAdmin() && User::where('role', 'admin')->count() <= 1) || ($user->isDelivery()
-                                    && User::where('role', 'delivery')->count() <= 1)) disabled @endif --}}>
+                                data-target="#deleteModal{{ $user->id }}" title="Delete" @if($user->id === auth()->id()
+                                ||
+                                ($user->isAdmin() && \App\Models\User::where('role', 'admin')->count() <= 1) || ($user->
+                                    isDelivery() && \App\Models\User::where('role', 'delivery')->count() <= 1)) disabled
+                                        @endif>
                                         <i class="fas fa-trash-alt"></i>
                             </button>
                         </div>

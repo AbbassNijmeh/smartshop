@@ -30,8 +30,8 @@ class ProductController extends Controller
         $categories = Category::all();
         return view('admin.product.create', compact('categories', 'ingredients'));
     }
- public function store(Request $request)
-{
+    public function store(Request $request)
+    {
         DB::beginTransaction();
 
         try {
@@ -60,13 +60,13 @@ class ProductController extends Controller
             ]);
 
             // Handle image upload
- $imagePath = null;
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $imageName = time() . '.' . $image->extension();
-            $image->move(public_path('storage'), $imageName);
-            $imagePath = $imageName;
-        }
+            $imagePath = null;
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $imageName = time() . '.' . $image->extension();
+                $image->move(public_path('storage'), $imageName);
+                $imagePath = $imageName;
+            }
             // Create product
             $product = Product::create([
                 'category_id' => $validated['category_id'],
@@ -108,11 +108,9 @@ class ProductController extends Controller
             return redirect()
                 ->route('products.index')
                 ->with('success', 'Product created successfully');
-
         } catch (\Illuminate\Validation\ValidationException $e) {
             DB::rollBack();
             return back()->withErrors($e->validator)->withInput();
-
         } catch (\Exception $e) {
             DB::rollBack();
 
@@ -125,7 +123,7 @@ class ProductController extends Controller
                 ->withInput()
                 ->with('error', 'Error creating product: ' . $e->getMessage());
         }
-        }
+    }
 
     public function edit(Product $product)
     {

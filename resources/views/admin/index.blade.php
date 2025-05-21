@@ -37,118 +37,6 @@
                 </div>
             </li>
 
-            <!-- Nav Item - Alerts -->
-            {{-- <li class="nav-item dropdown no-arrow mx-1">
-                <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-bell fa-fw"></i>
-                    <!-- Counter - Alerts -->
-                    <span class="badge badge-danger badge-counter">3+</span>
-                </a>
-                <!-- Dropdown - Alerts -->
-                <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                    aria-labelledby="alertsDropdown">
-                    <h6 class="dropdown-header">
-                        Alerts Center
-                    </h6>
-                    <a class="dropdown-item d-flex align-items-center" href="#">
-                        <div class="mr-3">
-                            <div class="icon-circle bg-primary">
-                                <i class="fas fa-file-alt text-white"></i>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="small text-gray-500">December 12, 2019</div>
-                            <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                        </div>
-                    </a>
-                    <a class="dropdown-item d-flex align-items-center" href="#">
-                        <div class="mr-3">
-                            <div class="icon-circle bg-success">
-                                <i class="fas fa-donate text-white"></i>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="small text-gray-500">December 7, 2019</div>
-                            $290.29 has been deposited into your account!
-                        </div>
-                    </a>
-                    <a class="dropdown-item d-flex align-items-center" href="#">
-                        <div class="mr-3">
-                            <div class="icon-circle bg-warning">
-                                <i class="fas fa-exclamation-triangle text-white"></i>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="small text-gray-500">December 2, 2019</div>
-                            Spending Alert: We've noticed unusually high spending for your account.
-                        </div>
-                    </a>
-                    <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-                </div>
-            </li> --}}
-
-            <!-- Nav Item - Messages -->
-            {{-- <li class="nav-item dropdown no-arrow mx-1">
-                <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-envelope fa-fw"></i>
-                    <!-- Counter - Messages -->
-                    <span class="badge badge-danger badge-counter">7</span>
-                </a>
-                <!-- Dropdown - Messages -->
-                <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                    aria-labelledby="messagesDropdown">
-                    <h6 class="dropdown-header">
-                        Message Center
-                    </h6>
-                    <a class="dropdown-item d-flex align-items-center" href="#">
-                        <div class="dropdown-list-image mr-3">
-                            <img class="rounded-circle" src="img/undraw_profile_1.svg" alt="...">
-                            <div class="status-indicator bg-success"></div>
-                        </div>
-                        <div class="font-weight-bold">
-                            <div class="text-truncate">Hi there! I am wondering if you can help me with a
-                                problem I've been having.</div>
-                            <div class="small text-gray-500">Emily Fowler · 58m</div>
-                        </div>
-                    </a>
-                    <a class="dropdown-item d-flex align-items-center" href="#">
-                        <div class="dropdown-list-image mr-3">
-                            <img class="rounded-circle" src="img/undraw_profile_2.svg" alt="...">
-                            <div class="status-indicator"></div>
-                        </div>
-                        <div>
-                            <div class="text-truncate">I have the photos that you ordered last month, how
-                                would you like them sent to you?</div>
-                            <div class="small text-gray-500">Jae Chun · 1d</div>
-                        </div>
-                    </a>
-                    <a class="dropdown-item d-flex align-items-center" href="#">
-                        <div class="dropdown-list-image mr-3">
-                            <img class="rounded-circle" src="img/undraw_profile_3.svg" alt="...">
-                            <div class="status-indicator bg-warning"></div>
-                        </div>
-                        <div>
-                            <div class="text-truncate">Last month's report looks great, I am very happy with
-                                the progress so far, keep up the good work!</div>
-                            <div class="small text-gray-500">Morgan Alvarez · 2d</div>
-                        </div>
-                    </a>
-                    <a class="dropdown-item d-flex align-items-center" href="#">
-                        <div class="dropdown-list-image mr-3">
-                            <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60" alt="...">
-                            <div class="status-indicator bg-success"></div>
-                        </div>
-                        <div>
-                            <div class="text-truncate">Am I a good boy? The reason I ask is because someone
-                                told me that people say this to all dogs, even if they aren't good...</div>
-                            <div class="small text-gray-500">Chicken the Dog · 2w</div>
-                        </div>
-                    </a>
-                    <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
-                </div>
-            </li> --}}
 
             <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -163,6 +51,7 @@
                 </a>
                 <!-- Dropdown - User Information -->
                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                    <a class="dropdown-item text-center"> {{ Auth::user()->name }}</a>
                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                         <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                         Logout
@@ -275,28 +164,56 @@
 
         <!-- Content Row -->
 
-        <div class="row">
 
+        <div class="row">
             <!-- Area Chart -->
-            <div class="col">
+            <div class="col-12">
                 <div class="card shadow mb-4">
                     <!-- Card Header - Dropdown -->
-                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-primary">Sales Overview</h6>
+
+                    <div class="chart-controls mx-4 ">
+                        <select id="timePeriod">
+                            <option value="30">Last 30 Days</option>
+                            <option value="60">Last 60 Days</option>
+                            <option value="90">Last 90 Days</option>
+                        </select>
+                        <button onclick="updateChart()">Update</button>
                     </div>
                     <!-- Card Body -->
                     <div class="card-body">
-                        <div class="chart-area">
-                            <canvas id="myAreaChart"></canvas>
+                        <canvas id="monthlyChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Top Products Chart -->
+            <div class="col-lg-6">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Top Selling Products</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-bar">
+                            <canvas id="topProductsChart"></canvas>
                         </div>
                     </div>
                 </div>
             </div>
 
+            <div class="col-lg-6">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Sales by Category</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-pie pt-4">
+                            <canvas id="categorySalesChart"></canvas>
+                        </div>
 
+                    </div>
+                </div>
+            </div>
         </div>
-
-
 
     </div>
     <!-- /.container-fluid -->
@@ -305,107 +222,273 @@
 @endsection
 @push('script')
 <script>
-    function number_format(number, decimals = 0, dec_point = '.', thousands_sep = ',') {
-      number = (number + '').replace(/[^0-9+\-Ee.]/g, '');
-      const n = !isFinite(+number) ? 0 : +number;
-      const prec = !isFinite(+decimals) ? 0 : Math.abs(decimals);
-      const sep = thousands_sep;
-      const dec = dec_point;
-      let s = '';
-      const toFixedFix = function(n, prec) {
-        return (Math.round(n * Math.pow(10, prec)) / Math.pow(10, prec)).toFixed(prec);
-      };
-      s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
-      if (s[0].length > 3) {
-        s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
-      }
-      if ((s[1] || '').length < prec) {
-        s[1] = s[1] || '';
-        s[1] += new Array(prec - s[1].length + 1).join('0');
-      }
-      return s.join(dec);
-    }
+    document.addEventListener('DOMContentLoaded', function () {
+    // Category Sales Chart
+    fetch('/category-sales')
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
 
-    $(document).ready(function () {
-      $.ajax({
-        url: '/orders/monthly-data',
-        method: 'GET',
-        success: function (data) {
-          var ctx = document.getElementById("myAreaChart").getContext('2d');
-          new Chart(ctx, {
-            type: 'line',
-            data: {
-              labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-              datasets: [{
-                label: "Sales",
-                lineTension: 0.3,
-                backgroundColor: "rgba(78, 115, 223, 0.05)",
-                borderColor: "rgba(78, 115, 223, 1)",
-                pointRadius: 3,
-                pointBackgroundColor: "rgba(78, 115, 223, 1)",
-                pointBorderColor: "rgba(78, 115, 223, 1)",
-                pointHoverRadius: 3,
-                pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-                pointHoverBorderColor: "rgba(78, 115, 223, 1)",
-                pointHitRadius: 10,
-                pointBorderWidth: 2,
-                data: data
-              }]
-            },
-            options: {
-              maintainAspectRatio: false,
-              layout: {
-                padding: { left: 10, right: 25, top: 25, bottom: 0 }
-              },
-              scales: {
-                xAxes: [{
-                  time: { unit: 'date' },
-                  gridLines: { display: false, drawBorder: false },
-                  ticks: { maxTicksLimit: 7 }
-                }],
-                yAxes: [{
-                  ticks: {
-                    maxTicksLimit: 5,
-                    padding: 10,
-                    callback: function(value) {
-                      return '$' + number_format(value);
+            const ctx = document.getElementById('categorySalesChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: data.labels,
+                    datasets: [{
+                        data: data.data,
+                        backgroundColor: data.colors,
+                        hoverBackgroundColor: data.colors.map(color => color + 'dd'),
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    cutout: '70%',
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const label = context.label || '';
+                                    const value = context.parsed || 0;
+                                    return `${label}: $${value.toFixed(2)}`;
+                                }
+                            }
+                        }
                     }
-                  },
-                  gridLines: {
-                    color: "rgb(234, 236, 244)",
-                    zeroLineColor: "rgb(234, 236, 244)",
-                    drawBorder: false,
-                    borderDash: [2],
-                    zeroLineBorderDash: [2]
-                  }
-                }]
-              },
-              legend: { display: false },
-              tooltips: {
-                backgroundColor: "rgb(255,255,255)",
-                bodyFontColor: "#858796",
-                titleMarginBottom: 10,
-                titleFontColor: '#6e707e',
-                titleFontSize: 14,
-                borderColor: '#dddfeb',
-                borderWidth: 1,
-                xPadding: 15,
-                yPadding: 15,
-                displayColors: false,
-                intersect: false,
-                mode: 'index',
-                caretPadding: 10,
-                callbacks: {
-                  label: function(tooltipItem, chart) {
-                    return 'Sales: $' + number_format(tooltipItem.yLabel);
-                  }
-                }
-              }
-            }
-          });
-        }
-      });
-    });
+                },
+               plugins: [{
+    id: 'datalabels',
+    afterDatasetsDraw: (chart) => {
+        const ctx = chart.ctx;
+        chart.data.datasets.forEach((dataset, i) => {
+            const meta = chart.getDatasetMeta(i);
+            const total = dataset.data.reduce((a, b) => a + parseFloat(b), 0);
+
+            meta.data.forEach((element, index) => {
+                const value = parseFloat(dataset.data[index]);
+                const percentage = total > 0
+                    ? Math.round((value / total) * 100)
+                    : 0;
+
+                ctx.fillStyle = 'white';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.font = '12px Arial';
+
+                const position = element.tooltipPosition();
+                ctx.fillText(`${percentage}%`, position.x, position.y);
+            });
+        });
+    }
+}]
+            });
+        });
+});
 </script>
 
-@endpush
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    // Top Products Chart
+    fetch('/top-products')
+        .then(response => response.json())
+        .then(data => {
+            const ctx = document.getElementById('topProductsChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: data.labels,
+                    datasets: [{
+                        label: 'Units Sold',
+                        data: data.data,
+                        backgroundColor: '#4e73df',
+                        borderColor: '#4e73df',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    indexAxis: 'y', // Makes horizontal bar chart
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            grid: {
+                                display: false
+                            },
+                            title: {
+                                display: true,
+                                text: 'Units Sold'
+                            }
+                        },
+                        y: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                autoSkip: false
+                            }
+                        }
+                    }
+                }
+            });
+        });
+});
+</script>
+
+
+<<script>
+    let monthlyChart = null;
+
+    function updateChart() {
+    const period = document.getElementById('timePeriod').value;
+    const endDate = new Date();
+    const startDate = new Date();
+    startDate.setDate(startDate.getDate() - parseInt(period));
+
+    fetch(`/orders/monthly-data?start_date=${startDate.toISOString().split('T')[0]}&end_date=${endDate.toISOString().split('T')[0]}`)
+    .then(response => response.json())
+    .then(data => {
+    const ctx = document.getElementById('monthlyChart').getContext('2d');
+
+    if (monthlyChart) monthlyChart.destroy();
+
+    monthlyChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+    labels: data.months,
+    datasets: [{
+    label: 'Total Sales',
+    data: data.sales,
+    borderColor: '#3e95cd',
+    backgroundColor: 'rgba(62, 149, 205, 0.2)',
+    tension: 0.4,
+    pointRadius: 3,
+    pointHoverRadius: 5,
+    pointBorderWidth: 2,
+    pointBackgroundColor: '#fff'
+    },
+    {
+    label: 'Total Profit',
+    data: data.profits,
+    borderColor: '#4caf50',
+    backgroundColor: 'rgba(76, 175, 80, 0.2)',
+    tension: 0.4,
+    pointRadius: 3,
+    pointHoverRadius: 5,
+    pointBorderWidth: 2,
+    pointBackgroundColor: '#fff'
+    }]
+    },
+    options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+    title: {
+    display: true,
+    text: 'Sales vs. Profit Analysis'
+    },
+    legend: {
+    position: 'top'
+    }
+    },
+    scales: {
+    x: {
+    grid: {
+    display: false
+    },
+    ticks: {
+    maxRotation: 0,
+    autoSkipPadding: 20
+    }
+    },
+    y: {
+    beginAtZero: true,
+    title: {
+    display: true,
+    text: 'Amount ($)'
+    },
+    grid: {
+    color: '#f5f5f5'
+    }
+    }
+    },
+    elements: {
+    line: {
+    borderWidth: 2
+    }
+    }
+    }
+    });
+    });
+    }
+
+    // Initial load and window resize handler
+    document.addEventListener('DOMContentLoaded', updateChart);
+    window.addEventListener('resize', () => {
+    if (monthlyChart) {
+    monthlyChart.destroy();
+    updateChart();
+    }
+    });
+    </script>
+
+
+    @endpush
+    @push('styles')
+
+    <style>
+        .chart-controls {
+            margin: 20px 0;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .chart-container {
+            width: 100%;
+            min-height: 300px;
+            margin: 20px 0;
+        }
+
+        select {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: white;
+        }
+
+        button {
+            padding: 8px 16px;
+            background-color: #3e95cd;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: #357ebd;
+        }
+
+        @media (max-width: 480px) {
+            .chart-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            select,
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+    @endpush

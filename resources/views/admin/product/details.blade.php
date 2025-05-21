@@ -3,122 +3,185 @@
 @section('body')
 <div class="container mt-4">
     <!-- Breadcrumb Navigation -->
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb bg-light p-3 rounded">
-            <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-            <i class="fa fa-bars"></i>
-        </button>
-            <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">Dashboard</a></li>
-            <li class="breadcrumb-item"><a href="{{ route('products.index') }}">Products</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Product #{{ $product->id }}</li>
+    <nav aria-label="breadcrumb" class="glass-morphism">
+        <ol class="breadcrumb bg-transparent p-3 rounded-3">
+            <li class="breadcrumb-item">
+                <a href="{{ route('dashboard.index') }}" class="text-decoration-none text-primary">
+                    <i class="fas fa-home me-1"></i>Dashboard
+                </a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{{ route('products.index') }}" class="text-decoration-none text-primary">
+                    <i class="fas fa-boxes me-1"></i>Products
+                </a>
+            </li>
+            <li class="breadcrumb-item active text-muted" aria-current="page">
+                <i class="fas fa-tag me-1"></i>#{{ $product->id }}
+            </li>
         </ol>
     </nav>
 
-    <!-- Product Details Card -->
-    <div class="card shadow-lg border-0 rounded-3">
-        <div class="card-header bg-primary text-white text-center py-3">
-            <h4 class="mb-0"><i class="fas fa-box"></i> {{ $product->name }}</h4>
+    <!-- Product Card -->
+    <div class="card glass-morphism border-0 overflow-hidden">
+        <div class="card-header bg-gradient-primary text-white py-4 position-relative">
+            <div class="floating-shapes">
+                <div class="shape circle"></div>
+                <div class="shape triangle"></div>
+            </div>
+            <h2 class="mb-0 fw-light">
+                <i class="fas fa-box-open me-2"></i>{{ $product->name }}
+            </h2>
         </div>
+
         <div class="card-body">
-            @if ($product->image)
+            <!-- Image Gallery -->
+            <div class="row g-4 mb-5">
+                <div class="col-md-5">
+                    <div class="image-container hover-scale">
+                        @if ($product->image)
+                        <img src="{{ asset($product->image) }}" alt="Product Image"
+                            class="img-fluid rounded-3 shadow-sm w-100">
+                        <button class="btn btn-danger btn-floating delete-pic-btn" data-id="{{ $product->id }}"
+                            data-image="{{ $product->image }}" data-bs-toggle="modal" data-bs-target="#deletePicModal">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                        @else
+                        <div class="no-image-placeholder d-flex align-items-center justify-content-center">
+                            <i class="fas fa-image fa-4x text-muted"></i>
+                        </div>
+                        @endif
+                    </div>
+                </div>
 
-            <div class="row">
+                <!-- Product Details -->
+                <div class="col-md-7">
+                    <div class="detail-grid">
+                        <div class="detail-card">
+                            <i class="fas fa-hashtag text-primary"></i>
+                            <div>
+                                <span class="text-muted">Product ID</span>
+                                <h5 class="mb-0">#{{ $product->id }}</h5>
+                            </div>
+                        </div>
 
-                <div class="col-12 text-center mb-3">
-                    <!-- Image Container -->
-                    <div class="position-relative d-inline-block">
-                        <img src="{{ asset($product->image) }}" class="img-fluid rounded shadow-sm w-100"
-                            alt="Product Image" style="max-height: 250px; object-fit: contain;">
+                        <div class="detail-card">
+                            <i class="fas fa-layer-group text-success"></i>
+                            <div>
+                                <span class="text-muted">Category</span>
+                                <h5 class="mb-0">{{ $product->category->name }}</h5>
+                            </div>
+                        </div>
 
-                        <!-- Delete Image Badge positioned at the top-right corner -->
-                        <span class="badge bg-danger rounded-circle p-2 delete-pic-btn" data-id="{{ $product->id }}"
-                            data-image="{{ $product->image }}" data-toggle="modal" data-target="#deletePicModal"
-                            style="cursor: pointer; font-size: 18px; position: absolute; top: 5px; right: 5px; z-index: 1;">
-                            &times;
-                        </span>
+                        <div class="detail-card">
+                            <i class="fas fa-info-circle text-info"></i>
+                            <div>
+                                <span class="text-muted">Description</span>
+                                <p class="mb-0">{{ $product->description }}</p>
+                            </div>
+                        </div>
+
+                        <!-- Pricing Section -->
+                        <div class="pricing-card bg-gradient-warning text-white">
+                            <div class="price-item">
+                                <span>Cost Price</span>
+                                <h3>${{ number_format($product->cost_price, 2) }}</h3>
+                            </div>
+                            <div class="price-item">
+                                <span>Sale Price</span>
+                                <h3>${{ number_format($product->price, 2) }}</h3>
+                            </div>
+                            <div class="discount-badge">
+                                {{ $product->discount }}% OFF
+                            </div>
+                        </div>
+
+                        <!-- Inventory Details -->
+                        <div class="detail-card">
+                            <i class="fas fa-cubes text-danger"></i>
+                            <div>
+                                <span class="text-muted">Stock</span>
+                                <h5 class="mb-0">{{ $product->stock_quantity }} units</h5>
+                            </div>
+                        </div>
+
+                        <!-- Additional Details -->
+                        <div class="specs-grid">
+                            <div class="spec-item">
+                                <i class="fas fa-weight-hanging"></i>
+                                <span>{{ number_format($product->weight,2) }}g</span>
+                            </div>
+                            <div class="spec-item">
+                                <i class="fas fa-expand"></i>
+                                <span>{{ $product->dimensions }}</span>
+                            </div>
+                            <div class="spec-item">
+                                <i class="fas fa-barcode"></i>
+                                <span>{{ $product->barcode }}</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            @else
-            <p class="text-muted text-center">No Image Available</p>
-            @endif
 
-            <div class="row g-3">
-                <div class="col-md-6">
-                    <p><strong>Product ID:</strong> {{ $product->id }}</p>
-                    <p><strong>Category:</strong> {{ $product->category->name }}</p>
-                    <p><strong>Description:</strong> {{ $product->description }}</p>
-                    <p><strong>Brand:</strong> {{ $product->brand }}</p>
-                    <p><strong>Cost Price:</strong> <span class="text-danger">${{ number_format($product->cost_price, 2)
-                            }}</span></p>
-                </div>
-                <div class="col-md-6">
-                    <p><strong>Sale Price:</strong> <span class="text-success fw-bold">${{
-                            number_format($product->price, 2) }}</span></p>
-                    <p><strong>Stock:</strong> {{ $product->stock_quantity }} units</p>
-                    <p><strong>Discount:</strong> {{ $product->discount }}% ({{ $product->discount_start }} - {{
-                        $product->discount_end }})</p>
-                    <p><strong>Expiration Date:</strong> {{ $product->expiration_date ?? 'N/A' }}</p>
-                    <p><strong>Weight:</strong> {{ number_format($product->weight,2) }} g</p>
-                </div>
-                <div class="col-12">
-                    <p><strong>Dimensions:</strong> {{ $product->dimensions }}</p>
-                    <p><strong>Barcode:</strong> {{ $product->barcode }}</p>
-                    <p><strong>Location:</strong> <span class="badge bg-secondary">Aisle: {{ $product->aisle }},
-                            Section: {{ $product->section }}, Floor: {{ $product->floor }}</span></p>
-                    <p><strong>Ingredients:</strong> {{ $product->ingredients->pluck('name')->join(', ') }}</p>
-                </div>
-            </div>
-        </div>
-        <!-- Action Buttons -->
-        <div class="card-footer d-flex flex-column flex-md-row justify-content-between gap-3 p-3">
-            <a href="{{ route('products.index') }}"
-                class="btn btn-secondary w-100 w-md-auto d-flex align-items-center justify-content-center gap-2 py-3">
-                <i class="fas fa-arrow-left"></i> Back to Products
-            </a>
-            <div class="d-flex flex-column flex-md-row gap-3 w-100 w-md-auto">
-                <a href="{{ route('products.edit', $product->id) }}"
-                    class="btn btn-warning w-100 w-md-auto d-flex align-items-center justify-content-center gap-2 py-3">
-                    <i class="fas fa-edit"></i> Edit
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <a href="{{ route('products.index') }}" class="btn btn-outline-primary">
+                    <i class="fas fa-arrow-left me-2"></i>Back to Products
                 </a>
-                <button
-                    class="btn btn-danger w-100 w-md-auto d-flex align-items-center justify-content-center gap-2 py-3"
-                    data-toggle="modal" data-target="#deleteModal">
-                    <i class="fas fa-trash-alt"></i> Delete
-                </button>
+                <div class="btn-group">
+                    <a href="{{ route('products.edit', $product->id) }}" class="btn btn-primary">
+                        <i class="fas fa-edit me-2"></i>Edit
+                    </a>
+                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                        <i class="fas fa-trash-alt me-2"></i>Delete
+                    </button>
+                </div>
             </div>
         </div>
+    </div>
 
+    <!-- Reviews Section -->
+    <div class="reviews-section glass-morphism">
+        <h4 class="section-title"><i class="fas fa-comments me-2"></i>Customer Reviews</h4>
 
-        <!-- Reviews Section -->
-        <h5 class="mt-4 px-3">Product Reviews</h5>
         @if ($product->reviews->isEmpty())
-        <p class="text-muted px-5 text-center ">No reviews yet.</p>
+        <div class="empty-state">
+            <i class="fas fa-comment-slash"></i>
+            <p>No reviews yet</p>
+        </div>
         @else
-
-        <div class="list-group px-3 pb-3">
-
+        <div class="reviews-grid">
             @foreach($product->reviews as $review)
-            <div class="list-group-item d-flex justify-content-between align-items-start flex-wrap">
-                <div>
-                    <div class="fw-bold">{{ $review->user->name }}</div>
-                    <div class="text-muted">Rating: {{ $review->rating }} / 5</div>
-                    <p class="mb-0">{{ $review->comment }}</p>
+            <div class="review-card">
+                <div class="user-info">
+                    <div class="avatar">
+                        {{ strtoupper(substr($review->user->name, 0, 1)) }}
+                    </div>
+                    <div>
+                        <h6>{{ $review->user->name }}</h6>
+                        <div class="rating">
+                            @for($i = 0; $i < 5; $i++) <i
+                                class="fas fa-star{{ $i < $review->rating ? ' text-warning' : ' text-secondary' }}"></i>
+                                @endfor
+                        </div>
+                    </div>
                 </div>
-                <form action="{{ route('reviews.destroy', $review->id) }}" method="POST" class="ms-3">
+                <p class="review-text">{{ $review->comment }}</p>
+                <form action="{{ route('reviews.destroy', $review->id) }}" method="POST">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    <button type="submit" class="btn btn-icon">
+                        <i class="fas fa-trash text-danger"></i>
+                    </button>
                 </form>
             </div>
             @endforeach
         </div>
         @endif
-
-
-
     </div>
 </div>
+
+
 <!-- Delete Image Modal -->
 <div class="modal fade" id="deletePicModal" tabindex="-1" aria-labelledby="deletePicModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -171,22 +234,157 @@
     </div>
 </div>
 @endsection
-@push('script')
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // Event listener for the Delete Image button
-        document.addEventListener('click', function (event) {
-            if (event.target && event.target.classList.contains('delete-pic-btn')) {
-                const productId = event.target.getAttribute('data-id');
-                const productImage = event.target.getAttribute('data-image');
 
-                // Update the modal with the product info
-                document.getElementById('deletePicProductId').value = productId;
-                document.getElementById('deletePicImage').value = productImage;
-                document.getElementById('deletePicConfirmationMessage').textContent = "Are you sure you want to delete the image for this product?";
-            }
+@push('styles')
+<style>
+    /* Glass Morphism Effect */
+    .glass-morphism {
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Image Container */
+    .image-container {
+        position: relative;
+        border-radius: 1rem;
+        overflow: hidden;
+        transition: transform 0.3s ease;
+    }
+
+    .hover-scale:hover {
+        transform: scale(1.02);
+    }
+
+    .btn-floating {
+        position: absolute;
+        bottom: 1rem;
+        right: 1rem;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Detail Grid */
+    .detail-grid {
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+
+    .detail-card {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        transition: transform 0.3s ease;
+    }
+
+    .detail-card:hover {
+        transform: translateY(-3px);
+    }
+
+    /* Pricing Card */
+    .pricing-card {
+        padding: 2rem;
+        border-radius: 1rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .discount-badge {
+        position: absolute;
+        top: -20px;
+        right: -20px;
+        background: #fff;
+        color: #ff4757;
+        padding: 2rem 3rem;
+        transform: rotate(45deg);
+        font-weight: bold;
+    }
+
+    /* Reviews Section */
+    .reviews-grid {
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+
+    .review-card {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 1rem;
+        position: relative;
+    }
+
+    .avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: #3498db;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+    }
+
+    /* Animations */
+    @keyframes float {
+        0% {
+            transform: translateY(0px);
+        }
+
+        50% {
+            transform: translateY(-10px);
+        }
+
+        100% {
+            transform: translateY(0px);
+        }
+    }
+
+    .floating-shapes .shape {
+        position: absolute;
+        opacity: 0.1;
+    }
+
+    .circle {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background: #fff;
+        animation: float 3s infinite;
+    }
+
+    .triangle {
+        width: 0;
+        height: 0;
+        border-left: 50px solid transparent;
+        border-right: 50px solid transparent;
+        border-bottom: 100px solid #fff;
+        animation: float 4s infinite;
+    }
+</style>
+@endpush
+
+@push('scripts')
+<script>
+    // Add interactive animations
+    document.querySelectorAll('.detail-card').forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            card.style.transform = 'translateY(-5px)';
+        });
+
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'translateY(0)';
         });
     });
 </script>
-
 @endpush
